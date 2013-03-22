@@ -8,10 +8,10 @@ class TestInitializingBloomSet(TestCase):
     def setUp(self):
         self.bset = BloomSet(xrange(20))
 
-    def test_create_arr1_with_size(self):
+    def test_create_set1_with_size(self):
         self.assertEqual(self.bset.len1, 10)
 
-    def test_create_arr2_with_size(self):
+    def test_create_set2_with_size(self):
         self.assertEqual(self.bset.len2, 11)
 
 
@@ -22,7 +22,7 @@ class TestAddingElement(TestCase):
 
     def test_adding_element(self):
         self.bset.add_element(120)
-        self.assertTrue(any(self.bset.arr1), any(self.bset.arr2))
+        self.assertTrue(self.bset.set1, self.bset.set2)
 
 
 class TestMembership(TestCase):

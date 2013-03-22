@@ -6,15 +6,15 @@ from bloom_filter import BloomSet
 
 def main():
     print 'creating'
-    numbers = range(100000000)
+    numbers = range(100000)
     print 'created'
 
-    # rset = set(numbers)
-    bset = BloomSet(numbers)
+    rset = set(numbers)
+    # bset = BloomSet(numbers)
     print 'set done'
 
-    # test_membership_rset(numbers, rset)
-    test_membership_bset(numbers, bset)
+    test_membership_rset(numbers, rset)
+    # test_membership_bset(numbers, bset)
 
 def test_membership_rset(_list, rset):
     for element in _list:

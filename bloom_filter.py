@@ -1,30 +1,43 @@
 class BloomSet(object):
-    """Assume base64 machine."""
+    """Assume base64 machine.
 
+    Can check for membership, assume output is correct, then publish a message
+    to perform a reversible task, check for membership in a non-probabilistic
+    set, and publish a message to undo the previous mesage if the result
+    differs.
+
+
+    Good if the lookup to the non-probabilistic set is very expensive.
+    Good if you expect most of your membership lookups to return False.
+
+    """
     def __init__(self, elements):
         self.len1 = max(len(elements) / 2, 10)
         self.len2 = max(len(elements) / 2 + 1, 11)
         self.len3 = max(len(elements) / 2 + 2, 12)
-        self.arr1 = [0] * self.len1
-        self.arr2 = [0] * self.len2
-        self.arr3 = [0] * self.len3
+        self.set1 = 0L
+        self.set2 = 0L
+        self.set3 = 0L
 
         for element in elements:
             self.add_element(element)
 
     def add_element(self, element):
         index1, index2, index3 = self._hashes(element)
-        self.arr1[index1] = 1
-        self.arr2[index2] = 1
-        self.arr3[index3] = 1
+        self.set1 |= (1 << index1)
+        self.set2 |= (1 << index2)
+        self.set3 |= (1 << index3)
 
     def _hashes(self, element):
         h = _hash(element)
-        return h % self.len1, h % self.len2, h% self.len3
+        return h % self.len1, h % self.len2, h % self.len3
 
     def contains(self, element):
         index1, index2, index3 = self._hashes(element)
-        return self.arr1[index1] and self.arr2[index2] and self.arr3[index3]
+        element_in_set1 = self.set1 & (1 << index1) != 0
+        element_in_set2 = self.set2 & (1 << index2) != 0
+        element_in_set3 = self.set3 & (1 << index3) != 0
+        return element_in_set1 & element_in_set2 & element_in_set3 != 0
 
 
 def _hash(num):
