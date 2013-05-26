@@ -1,0 +1,102 @@
+200  K for 1e6 entries bset-ints  310 s
+12516K                 list-implementation 1.82 s
+2402 K --------------- set()  62ms
+
+24   K for 1e5 entries bset-ints 2.84 s
+1282 K                           208 ms
+2398 K --------------- set()  5.6ms
+
+6    K for 1e4 entries bset-ints 62.1 ms
+131  K                           21.8 ms
+239  K --------------- set()  466 us
+
+bset-list:
+    num_entries: 10000000
+    size: 125830K
+    create time: 18.0082268715s
+    check positives time: 17.7960939407s
+    check negatives time: 15.7769720554s
+
+    num_entries: 1000000
+    size: 12584K
+    create time: 1.76466798782s
+    check positives time: 1.75329589844s
+    check negatives time: 1.47721600533s
+
+    num_entries: 100000
+    size: 1279K
+    create time: 0.194976091385s
+    check positives time: 0.173564910889s
+    check negatives time: 0.148175954819s
+
+    num_entries: 10000
+    size: 124K
+    create time: 0.0205979347229s
+    check positives time: 0.0212731361389s
+    check negatives time: 0.0183999538422s
+
+bset-int:
+'try using 1 self.set1 and only do 1 |= ?
+
+
+
+    num_entries: 100000
+    size: 21K
+    create time: 2.83348202705s
+    check positives time: 1.41567420959s
+    check negatives time: 1.61898899078s
+
+    num_entries: 10000
+    size: 5K
+    create time: 0.0666229724884s
+    check positives time: 0.0524480342865s
+    check negatives time: 0.0567488670349s
+
+pypy:
+bset-list:
+
+    num_entries: 1000000
+    create time: 0.0987420082092s
+    check positives time: 0.0864911079407s
+    check negatives time: 0.0944578647614s
+
+
+    num_entries: 100000
+    create time: 0.00777196884155s
+    check positives time: 0.00802206993103s
+    check negatives time: 0.0107688903809s
+
+
+    num_entries: 10000
+    create time: 0.000798940658569s
+    check positives time: 0.000685930252075s
+    check negatives time: 0.000731945037842s
+
+rset
+
+    num_entries: 1000000
+    create time: 0.177013874054s
+    check positives time: 0.0073721408844s
+    check negatives time: 0.00648188591003s
+
+
+    num_entries: 100000
+    create time: 0.0102801322937s
+    check positives time: 0.00059986114502s
+    check negatives time: 0.00052809715271s
+
+
+    num_entries: 10000
+    create time: 0.000931978225708s
+    check positives time: 7.39097595215e-05s
+    check negatives time: 5.69820404053e-05s
+
+
+Why is the first faster than second?
+1:::::::::::::::::::::::::::::::::::
+i = 0L
+%timeit i << 5e6
+
+2:::::::::::::::::::::::::::::::::::
+i = (0L << 1e7) >> (1e7 + 1)
+%timeit i << 5e6
