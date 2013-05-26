@@ -2,7 +2,7 @@ import random
 import time
 # from guppy import hpy
 
-from bloom_filter import BloomSet
+from bloom_filter_long import BloomSet
 
 # h = hpy()
 

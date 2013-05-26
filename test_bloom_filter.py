@@ -1,6 +1,6 @@
 from unittest import TestCase, main
 
-from bloom_filter import BloomSet
+from bloom_filter_long import BloomSet
 
 
 class TestInitializingBloomSet(TestCase):
